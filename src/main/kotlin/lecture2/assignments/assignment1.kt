@@ -1,4 +1,4 @@
-package lecture2.warmupassignment1
+package lecture2.assignments
 
 import java.lang.Exception
 import java.util.Arrays.sort
@@ -247,6 +247,8 @@ fun findSmallerElements() {
 fun findTheFinalElement() {
     val arrayint = Array<Int>(6) { readLine()!!.toInt() }
     sort(arrayint)
+
+
     var n = arrayint.size
     if(n % 2 ==0){
         println("Final element will be ${arrayint[(n-1)/2]}")

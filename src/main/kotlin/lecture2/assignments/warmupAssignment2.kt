@@ -1,4 +1,4 @@
-package lecture2.warmupassignment1
+package lecture2.assignments
 
 fun main(){
 
