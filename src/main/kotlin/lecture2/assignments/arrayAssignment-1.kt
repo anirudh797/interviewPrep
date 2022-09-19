@@ -2,6 +2,7 @@ package lecture2.assignments
 
 import java.lang.Integer.min
 import java.lang.Math.max
+import java.util.*
 
 fun main(){
 //    1. https://leetcode.com/problems/two-sum/
@@ -11,8 +12,8 @@ fun main(){
 //        twoSum2(intArrayOf(2,4,5,6), 8)
 
 
-//    3. https://leetcode.com/problems/merge-sorted-array/ - Ask in Doubt
-
+//    3. https://leetcode.com/problems/merge-sorted-array/
+//            mergeSortedArray(intArrayOf(1,2,3,0,0,0),3, intArrayOf(2,5,6),3)
 
 //    4. https://leetcode.com/problems/pascals-triangle/
 //     var ans = generate(5)
@@ -31,6 +32,7 @@ fun main(){
 
 //    9. https://leetcode.com/problems/majority-element-ii/
 
+
 //    10.https://leetcode.com/problems/missing-ranges/ (premium ques)
 
 //    11.https://leetcode.com/problems/3sum/
@@ -42,9 +44,12 @@ fun main(){
 //        threeSumClosest(intArrayOf(0,3,4,-2,-4),2)
 
 //    14.https://leetcode.com/problems/4sum/
+        fourSum(intArrayOf(1,0,-1,0,-2,2),0)
 
 //    15.https://leetcode.com/problems/rotate-image/
 //    rotate(Array<IntArray>(arrayOf(5,1,9,11), intArrayOf(2,4,8,10), intArrayOf(,3,6,7))
+
+//      plusOne(intArrayOf(9,9,9))
 
 }
 
@@ -274,5 +279,101 @@ fun rotate(matrix: Array<IntArray>): Unit {
         first++
         last--
     }
+
+}
+
+fun mergeSortedArray(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
+    var i=0
+    var j=0
+    var k=0
+    while(i<m && j<n){
+
+        if(nums1[i]<=nums2[j]){
+            i++
+        }
+        else {
+            var temp=nums1[i]
+            while(j<n && nums2[j]<nums1[i]){
+                nums1[i]=nums2[j]
+                i++
+                j++
+            }
+            nums1[i]=temp
+        }
+        println("${nums1.contentToString()} ----- ${nums2.contentToString()}")
+    }
+    println("$i------$j")
+    while(i+1<(m+n) && j<n){
+        nums1[i+1]=nums2[j]
+        i++
+        j++
+    }
+    println(nums1.contentToString())
+}
+
+
+fun plusOne(digits: IntArray): IntArray {
+
+    var carry=1
+    var sum = intArrayOf().toMutableList()
+    var idx= digits.size-1
+    while(carry>0 && idx>=0 ){
+        var temp = digits[idx]+carry
+        sum.add(temp%10)
+        if(temp>9){
+            carry=1
+        }
+        else
+            carry=0
+        idx--
+    }
+    while(idx>=0){
+        sum.add(digits[idx])
+        idx--
+    }
+    if(carry>0)
+        sum.add(1)
+
+   var s = (sum.reversed()).toIntArray()
+    println(s.contentToString())
+    return s
+}
+
+fun fourSum(nums: IntArray, target: Int): List<List<Int>> {
+
+    nums.sort()
+    var ans = listOf<List<Int>>().toMutableList()
+    for(i in 0..nums.size-3) {
+
+        for (temp in i + 1 until nums.size) {
+
+            var j = temp
+
+            var k = i + 1
+            var l = j - 1
+            while (k < nums.size && l < nums.size && k < l) {
+                var sum = nums[i] + nums[j] + nums[k] + nums[l]
+                if (sum > target) {
+                    l--
+                } else if (sum < target) {
+                    k++
+                } else {
+                    ans.add(listOf(nums[i], nums[j], nums[k], nums[l]))
+                    k++
+                    l--
+                    while (k + 1 < l && nums[k] == nums[k + 1])
+                        k++
+
+                    while (l - 1 > k && nums[l] == nums[l - 1])
+                        l--
+
+                    println(ans)
+                }
+            }
+        }
+    }
+
+    println(ans)
+    return ans
 
 }
